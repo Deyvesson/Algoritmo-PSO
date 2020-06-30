@@ -4,17 +4,16 @@ public class Algoritmo {
 	Populacao p = new Populacao();
 	
 	public void atualizarVelocidade(Individuo i) {
-		i.velocidade = i.velocidade + 0.8*(i.melhorPosicao - i.posicao) + 0.8*(p.melhorAptidao - i.posicao);		
+		double novaVelocidade = i.velocidade + 0.8*(i.melhorPosicao - i.posicao) + 0.8*(p.melhorAptidao - i.posicao);		
+		if(novaVelocidade > 10) {i.velocidade = 10;}
+		else if(novaVelocidade < -10) {i.velocidade = -10;}
+		else {i.velocidade = novaVelocidade;}
+		
 	}
 	
 	public void AtualizarPosicao(Individuo i) {
 		i.posicao = i.posicao + i.velocidade;
 	}
-	
-	
-	
-	
-	
 	
 	
 	
