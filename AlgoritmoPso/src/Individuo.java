@@ -14,7 +14,7 @@ public class Individuo {
 	}
 	
 	public void calcularFitness() {
-		fitness = posicao * 2;
+		fitness = (posicao) / 3;
 	}
 	
 	public void calcularMelhorPosicao() {
