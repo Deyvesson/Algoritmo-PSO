@@ -5,7 +5,7 @@ public class Algoritmo {
 	Populacao p = new Populacao();
 	
 	public void atualizarVelocidade(Individuo i) {
-		double novaVelocidade = i.velocidade + 0.8*(i.melhorPosicao - i.posicao) + 0.8*(p.melhorAptidao - i.posicao);		
+		double novaVelocidade = i.velocidade + 0.1*(i.melhorPosicao - i.posicao) + 0.1*(p.melhorAptidao - i.posicao);		
 		if(novaVelocidade > 10) {i.velocidade = 10;}
 		else if(novaVelocidade < -10) {i.velocidade = -10;}
 		else {i.velocidade = novaVelocidade;}
@@ -14,6 +14,8 @@ public class Algoritmo {
 	
 	public void AtualizarPosicao(Individuo i) {
 		i.posicao = i.posicao + i.velocidade;
+		if(i.posicao > 10) {i.posicao = 10;}
+		else if(i.posicao < -10) {i.posicao = -10;}
 	}
 	
 	
@@ -27,27 +29,33 @@ public class Algoritmo {
 		while(rodar == 1) {
 			for(int i =0 ;i < 100; i++) {
 				System.out.println("População:" + i);
-				algoritmo.p.individuo1.calcularFitness();
-				algoritmo.p.individuo2.calcularFitness();
-				algoritmo.p.individuo3.calcularFitness();
-				algoritmo.p.individuo1.calcularMelhorPosicao();
-				algoritmo.p.individuo2.calcularMelhorPosicao();
-				algoritmo.p.individuo3.calcularMelhorPosicao();
+				//Calcular fitness
+				for(int j = 0; j < algoritmo.p.individuos.size(); j++) {
+					algoritmo.p.individuos.get(j).calcularFitness(algoritmo.p.individuos.get(j).posicao);
+				}
+				//Calcular Melhor posição
+				for(int j = 0; j < algoritmo.p.individuos.size(); j++) {
+					algoritmo.p.individuos.get(j).calcularMelhorPosicao();
+				}
 				algoritmo.p.calcularMelhorAp();
-				System.out.println(algoritmo.p.individuo1.toString());
-				System.out.println(algoritmo.p.individuo2.toString());
-				System.out.println(algoritmo.p.individuo3.toString());
-				System.out.println("melhor Fitness: "+algoritmo.p.melhorAptidao);
-				algoritmo.atualizarVelocidade(algoritmo.p.individuo1);
-				algoritmo.atualizarVelocidade(algoritmo.p.individuo2);
-				algoritmo.atualizarVelocidade(algoritmo.p.individuo3);
-				algoritmo.AtualizarPosicao(algoritmo.p.individuo1);
-				algoritmo.AtualizarPosicao(algoritmo.p.individuo2);
-				algoritmo.AtualizarPosicao(algoritmo.p.individuo3);
+				
+				for(int j = 0; j < algoritmo.p.individuos.size(); j++) {
+					System.out.println(algoritmo.p.individuos.get(j).toString());
+				}
+				System.out.println("melhor posicão global: "+algoritmo.p.melhorAptidao);
+				
+				for(int j = 0; j < algoritmo.p.individuos.size(); j++) {
+					algoritmo.atualizarVelocidade(algoritmo.p.individuos.get(j));
+				}
+
+				for(int j = 0; j < algoritmo.p.individuos.size(); j++) {
+					algoritmo.AtualizarPosicao(algoritmo.p.individuos.get(j));
+				}
+
 				System.out.println("");
 			}
 			Scanner entrada = new Scanner(System.in);
-			System.out.println("Continuar?");
+			System.out.println("Rodar mais 100?");
 			rodar =  + entrada.nextInt();
 		}
 	}

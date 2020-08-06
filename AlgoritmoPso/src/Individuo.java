@@ -9,16 +9,17 @@ public class Individuo {
 	
 	public Individuo() {
 		this.velocidade = 1.5;
-		this.posicao = gerador.nextInt(100);
+		this.posicao = gerador.nextInt(20)-10;
 		this.melhorPosicao = posicao;
 	}
 	
-	public void calcularFitness() {
-		fitness = (posicao) / 3;
+	public double calcularFitness(double posicao) {
+		fitness = (-1* Math.pow(posicao, 2)) - (8*posicao);
+		return fitness;
 	}
 	
 	public void calcularMelhorPosicao() {
-		if(posicao < melhorPosicao) {
+		if(calcularFitness(melhorPosicao) < calcularFitness(posicao)) {
 			melhorPosicao = posicao;
 		}
 	}
