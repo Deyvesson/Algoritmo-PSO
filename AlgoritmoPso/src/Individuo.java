@@ -8,7 +8,7 @@ public class Individuo {
 	Random gerador = new Random();
 	
 	public Individuo() {
-		this.velocidade = 1.5;
+		this.velocidade = Math.random();
 		this.posicao = gerador.nextInt(20)-10;
 		this.melhorPosicao = posicao;
 	}

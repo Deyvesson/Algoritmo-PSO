@@ -4,26 +4,26 @@ public class Populacao {
 	ArrayList<Individuo> individuos = new ArrayList();
 	Individuo individuo= new Individuo();
 
-	double melhorAptidao = -11;
+	double gBest = -11;
 	
 	public Populacao(){
-		for(int i = 0; i <6; i++) {
+		for(int i = 0; i <21; i++) {
 			Individuo individuo = new Individuo();
 			individuos.add(individuo);
 		}
 	}
 	
-	public void calcularMelhorAp() {
-		double melhor = individuos.get(0).posicao;
+	public void calcularGbest() {
+		Individuo melhor = individuos.get(0);
 		for(int i = 1; i < individuos.size(); i++) {
-			if(individuos.get(i).posicao > melhor) {
-				melhor = individuos.get(i).posicao;
+			if(individuos.get(i).fitness > melhor.fitness) {
+				melhor = individuos.get(i);
 			}
 		}
 		
-		if(melhorAptidao == -11) {melhorAptidao = melhor;}
-		else if(melhor > melhorAptidao) {
-			melhorAptidao = melhor;
+		if(gBest == -11) {gBest = melhor.posicao;}
+		else if(melhor.fitness >  melhor.calcularFitness(gBest)) {
+			gBest = melhor.posicao;
 		}
 	}
 }
